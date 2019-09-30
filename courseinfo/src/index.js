@@ -1,41 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-
-const Course = ({ courses }) => {
-  //   console.log(course);
-  const part = courses.parts.map(item => (
-    <li key={item.id}>
-      {item.name} {item.exercises}
-    </li>
-  ));
-  //   console.log(part);
-  return (
-    <div>
-      <h2>{courses.name}</h2>
-      <div>{part}</div>
-    </div>
-  );
-};
-
-const Total = ({ parts }) => {
-  //   console.log(parts);
-  const total = parts.reduce(
-    (s, p) => {
-      return s + p.exercises;
-    },
-
-    0
-  );
-  console.log(total);
-  return (
-    <div>
-      <div>
-        <b> total of {total} exercises</b>
-      </div>
-    </div>
-  );
-};
+import Course from "./components/Course";
+import Total from "./components/Total";
 
 const App = () => {
   const courses = [
