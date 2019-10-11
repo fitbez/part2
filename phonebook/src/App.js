@@ -4,20 +4,27 @@ import "./App.css";
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
 
   const handleNameChange = e => {
     // console.log(e.target.value);
     setNewName(e.target.value);
   };
+  const handleNumberChange = e => {
+    // console.log(e.target.value);
+    setNewNumber(e.target.value);
+  };
 
   const addPerson = event => {
     event.preventDefault();
     const personObject = {
-      name: newName
+      name: newName,
+      number: newNumber
     };
 
     setPersons(persons.concat(personObject));
     setNewName(" ");
+    setNewNumber(" ");
   };
   console.log(newName);
   console.log(persons);
@@ -29,6 +36,10 @@ const App = () => {
         <div>
           name: <input value={newName} onChange={handleNameChange} />
         </div>
+
+        <div>
+          number: <input value={newNumber} onChange={handleNumberChange} />
+        </div>
         <div>
           <button type="submit" onClick={addPerson}>
             add
@@ -39,7 +50,10 @@ const App = () => {
       <div>
         {persons.map(person => {
           return person.name !== newName ? (
-            <li key={person.name}>{person.name}</li>
+            <li key={person.name}>
+              {person.name}
+              {person.number}
+            </li>
           ) : (
             alert(`${newName} is already registerd`)
           );
