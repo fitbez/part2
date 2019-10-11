@@ -15,10 +15,12 @@ const App = () => {
     const personObject = {
       name: newName
     };
+
     setPersons(persons.concat(personObject));
     setNewName(" ");
-    console.log(persons.length);
   };
+  console.log(newName);
+  console.log(persons);
 
   return (
     <div>
@@ -35,9 +37,13 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>
-        {persons.map(person => (
-          <li key={person.name}>{person.name}</li>
-        ))}
+        {persons.map(person => {
+          return person.name !== newName ? (
+            <li key={person.name}>{person.name}</li>
+          ) : (
+            alert(`${newName} is already registerd`)
+          );
+        })}
       </div>
     </div>
   );
