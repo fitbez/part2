@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import Filter from "./components/Filter";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Persons";
 import "./App.css";
 
 const App = () => {
@@ -47,40 +50,19 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with{" "}
-        <input value={filterName} onChange={handleFilterName} />
-      </div>
+      <Filter value={filterName} onChange={handleFilterName} />
       <div>
         <h2>add a new</h2>
       </div>
-      <form>
-        <div>
-          name: <input value={newName} onChange={handleNameChange} />
-        </div>
-
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit" onClick={addPerson}>
-            add
-          </button>
-        </div>
-      </form>
+      <PersonForm
+        valueName={newName}
+        valueNumber={newNumber}
+        onChangeName={handleNameChange}
+        addPerson={addPerson}
+        onChangeNumber={handleNumberChange}
+      />
       <h2>Numbers</h2>
-      <div>
-        {nameToShow.map(person => {
-          return person.name !== newName ? (
-            <li key={person.name}>
-              {person.name} {""}
-              {person.number}
-            </li>
-          ) : (
-            alert(`${newName} is already registerd`)
-          );
-        })}
-      </div>
+      <Persons nameToShow={nameToShow} newName={newName} />
     </div>
   );
 };
