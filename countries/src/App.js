@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import Weather from "./components/Weather";
 import axios from "axios";
 
-const App = () => {
+const App = props => {
   const [countries, setCountries] = useState([]);
   const [searchedCountries, setSearchedCountries] = useState("");
 
@@ -14,6 +15,8 @@ const App = () => {
   const countryToShow = countries.filter(
     country => country.name.toUpperCase().indexOf(filteredCountries) > -1
   );
+
+  console.log(countryToShow);
   useEffect(() => {
     console.log("effect");
     axios.get("https://restcountries.eu/rest/v2/all").then(response => {
@@ -21,19 +24,21 @@ const App = () => {
       setCountries(response.data);
     });
   }, []);
-  console.log(countryToShow);
+
   return (
     <div>
       <div>
         find countries <input onChange={handleSearch} />
       </div>
       <div>
-        {countryToShow.length >= 10
+        {countryToShow.length >= 250
+          ? "Please enter a country to know about..."
+          : countryToShow.length >= 10
           ? "Too many matches, specify another filter"
           : countryToShow.length === 1
           ? countryToShow.map(country => {
               return (
-                <div>
+                <div key={country.name}>
                   <h2>{country.name}</h2>
 
                   <div>
@@ -44,19 +49,35 @@ const App = () => {
                     <h3>languages</h3>
                     <div>
                       {country.languages.map(language => {
-                        return <li>{language.name}</li>;
+                        return <li key={language.name}>{language.name}</li>;
                       })}
                     </div>
                   </div>
                   <div>
                     <img src={country.flag} alt="flag" />
                   </div>
+                  <div>
+                    <h3>Weather in {country.name}</h3>
+                  </div>
+                  <div>
+                    <Weather countryToShow={countryToShow[0].name} />
+                  </div>
                 </div>
               );
             })
           : countryToShow.map(country => {
               return searchedCountries.length ? (
-                <li key={country.name}>{country.name}</li>
+                <li key={country.name}>
+                  {country.name}
+                  <button
+                    onClick={() => {
+                      setSearchedCountries(country.name);
+                      console.log(country.name);
+                    }}
+                  >
+                    show
+                  </button>
+                </li>
               ) : (
                 <div></div>
               );
