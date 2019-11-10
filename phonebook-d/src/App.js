@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import personService from "./services/persons";
 import "./App.css";
 
 const App = () => {
@@ -12,10 +12,9 @@ const App = () => {
   const [filterName, setFilterName] = useState("");
 
   useEffect(() => {
-    console.log("effect");
-    axios.get("http://localhost:3001/persons").then(response => {
+    personService.getAll().then(initialPerson => {
       console.log("promise fulfilled");
-      setPersons(response.data);
+      setPersons(initialPerson);
     });
   }, []);
 
@@ -36,6 +35,7 @@ const App = () => {
   const nameToShow = persons.filter(
     person => person.name.toUpperCase().indexOf(filteredName) > -1
   );
+
   const addPerson = event => {
     event.preventDefault();
     const personObject = {
@@ -43,8 +43,8 @@ const App = () => {
       number: newNumber
     };
 
-    axios.post("http://localhost:3001/persons", personObject).then(response => {
-      console.log(response);
+    personService.create(personObject).then(returnedPerson => {
+      console.log(returnedPerson);
     });
     setPersons(persons.concat(personObject));
     setNewName(" ");
