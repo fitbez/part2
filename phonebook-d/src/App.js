@@ -1,9 +1,11 @@
+/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import personService from "./services/persons";
 import "./App.css";
+import axios from "axios";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -31,13 +33,30 @@ const App = () => {
     setFilterName(e.target.value);
   };
 
+  const handleDelete = id => {
+    axios
+      .delete(`http://localhost:3001/persons/${id}`)
+      .then(setPersons(namesToShow.filter(person => person.id !== id)));
+  };
+
   const filteredName = filterName.toUpperCase();
-  const nameToShow = persons.filter(
+  const namesToShow = persons.filter(
     person => person.name.toUpperCase().indexOf(filteredName) > -1
   );
 
-  const addPerson = event => {
-    event.preventDefault();
+  const phoneBook = () =>
+    namesToShow.map(person => {
+      return (
+        <Persons
+          key={person.name}
+          person={person}
+          handleDelete={handleDelete}
+          persons={persons}
+        />
+      );
+    });
+
+  const addPerson = () => {
     const personObject = {
       name: newName,
       number: newNumber
@@ -50,9 +69,45 @@ const App = () => {
     setNewName(" ");
     setNewNumber(" ");
   };
-  // console.log(newName);
-  // console.log(nameToShow);
-  // console.log(filteredName);
+
+  const updateNumber = id => {
+    persons.some(e => {
+      if (e.name === newName) {
+        const id = e.id;
+        const number = persons.find(n => n.id === e.id);
+        const changedNumber = { ...number, number: newNumber };
+        console.log(number);
+
+        axios
+          .put(`http://localhost:3001/persons/${id}`, changedNumber)
+          .then(returnedPerson => {
+            setPersons(
+              persons.map(person =>
+                person.id === id ? person : returnedPerson
+              )
+            );
+          });
+      }
+    });
+  };
+
+  // const updateNumber = id => {
+  //   const editName = persons.some(e => {
+  //     return e.name === newName ? console.log(e.id) : null;
+  //   });
+  // };
+
+  const handleCreateAndUpdate = () => {
+    if (persons.some(e => e.name === newName)) {
+      window.confirm(
+        `${newName} is already registerd want to update a number?`
+      );
+      // console.log("update number");
+      return updateNumber();
+    } else {
+      return addPerson();
+    }
+  };
 
   return (
     <div>
@@ -65,11 +120,13 @@ const App = () => {
         valueName={newName}
         valueNumber={newNumber}
         onChangeName={handleNameChange}
-        addPerson={addPerson}
+        addPerson={handleCreateAndUpdate}
         onChangeNumber={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons nameToShow={nameToShow} newName={newName} />
+      <div>
+        <ul>{phoneBook()}</ul>
+      </div>
     </div>
   );
 };

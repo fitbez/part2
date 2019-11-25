@@ -1,19 +1,20 @@
 import React from "react";
 
-const Persons = ({ nameToShow, newName }) => {
+const Persons = ({ person, handleDelete, persons }) => {
   return (
-    <div>
-      {nameToShow.map(person => {
-        return person.name !== newName ? (
-          <li key={person.name}>
-            {person.name} {""}
-            {person.number}
-          </li>
-        ) : (
-          alert(`${newName} is already registerd`)
-        );
-      })}
-    </div>
+    <li>
+      {person.name} {""}
+      {person.number}
+      <button
+        onClick={() => {
+          return window.confirm(`Delete ${person.name}?`)
+            ? handleDelete(person.id)
+            : null;
+        }}
+      >
+        delete
+      </button>
+    </li>
   );
 };
 

@@ -1,44 +1,39 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": "1"
-    },
-    {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": "2"
-    },
-    {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": "3"
-    },
-    {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": "4"
-    },
-    {
-      "name": "fitsum",
+      "name": "fit bez",
       "number": "123456",
-      "id": "7GzIc3o"
+      "id": 1
     },
     {
-      "name": "kebede",
-      "number": "098765",
-      "id": "X9aBJQD"
+      "name": " markose",
+      "number": " 12356",
+      "id": 2
     },
     {
-      "name": "hanicho",
-      "number": "678349",
-      "id": "wkPHSO2"
+      "name": "hana teshome",
+      "number": "123456",
+      "id": 3
     },
     {
-      "name": "bubu",
-      "number": "485930",
-      "id": "B4yUW2w"
+      "name": "gelila mitiku",
+      "number": "456213",
+      "id": 4
+    },
+    {
+      "name": "kebede geresu",
+      "number": "741852963",
+      "id": 5
+    },
+    {
+      "name": "mama mamo",
+      "number": "123",
+      "id": 6
+    },
+    {
+      "name": "kamuzu kassa",
+      "number": "123",
+      "id": 7
     }
   ]
 }
