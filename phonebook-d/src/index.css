@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+h2 {
+  color: rgb(7, 73, 7);
+  font-style: italic;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  color: grey;
+  font-size: 15px;
+}
+
+button {
+  margin: 5px;
+  width: 60px;
+  height: 30px;
+  color: red;
+}
+
+.message {
+  color: black;
+  background: lightgrey;
+  font-size: 20px;
+  border-radius: 5px;
+  border-style: solid;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-color: green;
+}

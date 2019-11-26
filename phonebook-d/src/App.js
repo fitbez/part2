@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+import Notification from "./components/Notification";
 import personService from "./services/persons";
 import "./App.css";
 import axios from "axios";
@@ -12,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterName, setFilterName] = useState("");
+  const [notifiy, setNotifiy] = useState(null);
 
   useEffect(() => {
     personService.getAll().then(initialPerson => {
@@ -63,7 +65,10 @@ const App = () => {
     };
 
     personService.create(personObject).then(returnedPerson => {
-      console.log(returnedPerson);
+      setNotifiy(`${newName}`);
+      setTimeout(() => {
+        setNotifiy(null);
+      }, 500000);
     });
     setPersons(persons.concat(personObject));
     setNewName(" ");
@@ -91,12 +96,6 @@ const App = () => {
     });
   };
 
-  // const updateNumber = id => {
-  //   const editName = persons.some(e => {
-  //     return e.name === newName ? console.log(e.id) : null;
-  //   });
-  // };
-
   const handleCreateAndUpdate = () => {
     if (persons.some(e => e.name === newName)) {
       window.confirm(
@@ -112,6 +111,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notifiy} />
       <Filter value={filterName} onChange={handleFilterName} />
       <div>
         <h2>add a new</h2>
