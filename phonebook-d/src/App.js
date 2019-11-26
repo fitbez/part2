@@ -4,8 +4,9 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import Notification from "./components/Notification";
+import Error from "./components/Error";
 import personService from "./services/persons";
-import "./App.css";
+import "./index.css";
 import axios from "axios";
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [filterName, setFilterName] = useState("");
   const [notifiy, setNotifiy] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     personService.getAll().then(initialPerson => {
@@ -38,7 +40,19 @@ const App = () => {
   const handleDelete = id => {
     axios
       .delete(`http://localhost:3001/persons/${id}`)
-      .then(setPersons(namesToShow.filter(person => person.id !== id)));
+      .then(() => {
+        setPersons(namesToShow.filter(person => person.id !== id));
+      })
+      .catch(error => {
+        const deletedName = namesToShow.filter(person => person.id === id);
+        console.log(deletedName);
+        setErrorMessage(
+          `Information has of ${deletedName[0].name} already been removed from server`
+        );
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+      });
   };
 
   const filteredName = filterName.toUpperCase();
@@ -68,7 +82,7 @@ const App = () => {
       setNotifiy(`${newName}`);
       setTimeout(() => {
         setNotifiy(null);
-      }, 500000);
+      }, 5000000);
     });
     setPersons(persons.concat(personObject));
     setNewName(" ");
@@ -77,7 +91,7 @@ const App = () => {
 
   const updateNumber = id => {
     persons.some(e => {
-      if (e.name === newName) {
+      if (e.name.toUpperCase() === newName.toUpperCase()) {
         const id = e.id;
         const number = persons.find(n => n.id === e.id);
         const changedNumber = { ...number, number: newNumber };
@@ -97,7 +111,7 @@ const App = () => {
   };
 
   const handleCreateAndUpdate = () => {
-    if (persons.some(e => e.name === newName)) {
+    if (persons.some(e => e.name.toUpperCase() === newName.toUpperCase())) {
       window.confirm(
         `${newName} is already registerd want to update a number?`
       );
@@ -112,6 +126,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={notifiy} />
+      <Error message={errorMessage} />
       <Filter value={filterName} onChange={handleFilterName} />
       <div>
         <h2>add a new</h2>

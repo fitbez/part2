@@ -33,7 +33,10 @@ button {
   color: red;
 }
 
-.message {
+.addButton {
+  color: green;
+}
+.notify {
   color: black;
   background: lightgrey;
   font-size: 20px;
@@ -42,4 +45,15 @@ button {
   padding: 10px;
   margin-bottom: 10px;
   border-color: green;
+}
+
+.error {
+  color: black;
+  background: lightgrey;
+  font-size: 20px;
+  border-radius: 5px;
+  border-style: solid;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-color: red;
 }

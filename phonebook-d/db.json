@@ -1,74 +1,24 @@
 {
   "persons": [
     {
-      "name": "fit bez",
+      "name": "Arto Hellas",
       "number": "123",
       "id": 1
     },
     {
-      "name": " markose",
-      "number": " 12356",
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
       "id": 2
     },
     {
-      "name": "gelila mitiku",
-      "number": "456213",
+      "name": "Dan Abramov",
+      "number": "12-43-234345",
+      "id": 3
+    },
+    {
+      "name": "Mary Poppneddieck",
+      "number": "39-23-6423122",
       "id": 4
-    },
-    {
-      "name": "kebede geresu",
-      "number": "741852963",
-      "id": 5
-    },
-    {
-      "name": "mama mamo",
-      "number": "123",
-      "id": 6
-    },
-    {
-      "name": "kamuzu kassa",
-      "number": "123",
-      "id": 7
-    },
-    {
-      "name": "kaleb nano",
-      "number": "1203",
-      "id": 8
-    },
-    {
-      "name": "hana teshome ",
-      "number": "123456",
-      "id": 9
-    },
-    {
-      "name": "ayele baba",
-      "number": "123",
-      "id": 10
-    },
-    {
-      "name": "fitsum teshome",
-      "number": "123456",
-      "id": 11
-    },
-    {
-      "name": "selam ayenew",
-      "number": "789",
-      "id": 12
-    },
-    {
-      "name": "hana teshome",
-      "number": "147852",
-      "id": 13
-    },
-    {
-      "name": "solomon teshome",
-      "number": "123456",
-      "id": 14
-    },
-    {
-      "name": "mamo mamo",
-      "number": "1452",
-      "id": 15
     }
   ]
 }
