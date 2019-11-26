@@ -105,6 +105,16 @@ const App = () => {
                 person.id === id ? person : returnedPerson
               )
             );
+          })
+          .catch(error => {
+            const deletedName = namesToShow.filter(person => person.id === id);
+            console.log(deletedName);
+            setErrorMessage(
+              `Information has of ${deletedName[0].name} already been removed from server`
+            );
+            setTimeout(() => {
+              setErrorMessage(null);
+            }, 500000);
           });
       }
     });
